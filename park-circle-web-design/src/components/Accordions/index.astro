@@ -1,0 +1,91 @@
+---
+const { items } = Astro.props;
+---
+
+<ul id="faq-accordion" class="space-y-4 w-full">
+  {items.map((item, index) => (
+    <li
+      class="
+        faq-item
+        transition-colors duration-300
+        shadow-[0_1px_10px_rgba(0,0,0,0.09)]
+        rounded-md 
+        bg-white text-[var(--color-bodyTextColor)]
+        dark:border-white/30 dark:bg-transparent  box-border
+        hover:cursor-pointer
+        hover:border-[var(--color-primary)]
+        dark:hover:border-transparent
+        dark:hover:bg-white
+        dark:hover:shadow-[0_0_24px_rgba(67,183,255,0.2)]
+       dark:text-white dark:hover:text-dark
+       dark:animate-[buttonGlow_3.2s_forwards_infinite] 
+       dark:shadow-[0_0_24px_rgba(67,183,255,0.1),_0_0_39px_rgba(67,183,255,0.1),_0_0_60px_rgba(67,183,255,0.1)]
+      "
+      data-category={item.category}
+    >
+      <!-- Accordion Header -->
+      <button
+        type="button"
+        class="
+          relative group z-10
+          flex w-full items-center justify-between
+          px-4 py-3 text-left font-semibold
+          uppercase leading-[1.2em] 
+        "
+      >
+
+        <span class="text-lg">{item.question}</span>
+        <svg
+          class="arrow-icon h-5 w-5 fill-current transform transition-transform duration-300"
+          viewBox="0 0 20 20"
+        >
+          <path d="M10 12l-4-4h8l-4 4z" />
+        </svg>
+      </button>
+
+      <!-- Accordion Content -->
+      <div
+        class="
+          accordion-content
+          max-h-0
+          overflow-hidden
+          px-4
+          opacity-0
+          transition-all duration-300 ease-in-out
+        "
+      >
+        <p class="mt-2  pb-3">
+          {}
+          {item.answer.map(item => <p> {item.startsWith('- ')&& <span>&#x2022;</span>} {item.startsWith('- ') ? item.slice(2) : item}</p>)}
+        </p>
+      </div>
+    </li>
+  ))}
+</ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("faq-accordion")!
+    if (!container) return;
+
+    const items = container.querySelectorAll(".faq-item")!
+    items.forEach((item) => {
+      const headerButton = item.querySelector("button")!
+      const content = item.querySelector(".accordion-content")!
+      const arrow = item.querySelector(".arrow-icon")!
+
+      headerButton.addEventListener("click", () => {
+        const isClosed = content.classList.contains("max-h-0");
+        if (isClosed) {
+          content.classList.remove("max-h-0", "opacity-0");
+          content.classList.add("max-h-[500px]", "opacity-100");
+          arrow.classList.add("rotate-180");
+        } else {
+          content.classList.add("max-h-0", "opacity-0");
+          content.classList.remove("max-h-[500px]", "opacity-100");
+          arrow.classList.remove("rotate-180");
+        }
+      });
+    });
+  });
+</script>

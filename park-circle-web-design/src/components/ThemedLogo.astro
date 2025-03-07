@@ -1,0 +1,52 @@
+---
+interface Props {
+  inverted?: boolean;
+  alwaysWhite?: boolean;
+  alwaysBlue?: boolean;
+  class?: string;
+}
+
+const { inverted, alwaysWhite, alwaysBlue, class: classes } = Astro.props;
+
+const blueClass = inverted ? "hidden dark:block" : "dark:hidden";
+const whiteClass = inverted ? "dark:hidden" : "hidden dark:block";
+---
+
+<a href="/" aria-label="Park Circle Web Design Home">
+  {
+    alwaysBlue ? (
+      <img
+        src="/assets/logos/logo-blue.svg"
+        class={classes}
+        width="250"
+        height="100"
+        alt="Park Circle Web Design Logo | Charleston, SC"
+      />
+    ) : alwaysWhite ? (
+      <img
+        src="/assets/logos/logo-white.svg"
+        class={classes}
+        width="250"
+        height="100"
+        alt="Park Circle Web Design Logo | Charleston, SC"
+      />
+    ) : (
+      <>
+        <img
+          src="/assets/logos/logo-blue.svg"
+          class={`${blueClass} ${classes}`}
+          width="250"
+          height="100"
+          alt="Park Circle Web Design Logo | Charleston, SC"
+        />
+        <img
+          src="/assets/logos/logo-white.svg"
+          class={`${whiteClass} ${classes}`}
+          width="250"
+          height="100"
+          alt="Park Circle Web Design Logo | Charleston, SC"
+        />
+      </>
+    )
+  }
+</a>

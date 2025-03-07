@@ -1,0 +1,112 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import { services } from "../content/config"; // Your Zod schema for the "services" collection
+import BubbleHeroSection from "../components/layout/BubbleHeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const serviceEntries = await getCollection("services");
+  // console.log(JSON.stringify(serviceEntries));
+  return serviceEntries.map((entry) => ({
+    params: { slug: entry.slug.slice(1) },
+  }));
+}
+
+const { slug } = Astro.params;
+
+// Cast the slug to a string to satisfy TypeScript.
+const entry = await getEntry("services", ("/" + slug) as string);
+
+if (!entry) {
+  throw new Error(`Service not found for slug: ${slug}`);
+}
+
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+const { title, description, date } = remarkPluginFrontmatter;
+---
+
+<Layout>
+  <!-- Hero Section with layered gradient and wave SVG -->
+  <div
+    class="relative bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 text-white overflow-hidden"
+  >
+    <!-- Decorative swirl or wave at the bottom -->
+    <svg
+      class="absolute bottom-0 w-full text-white"
+      viewBox="0 0 1440 320"
+      fill="currentColor"
+    >
+      <path
+        fill-opacity="1"
+        d="M0,64L40,90.7C80,117,160,171,240,176C320,181,400,139,480,122.7C560,107,640,117,720,144C800,171,880,213,960,224C1040,235,1120,213,1200,186.7C1280,160,1360,128,1400,112L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+      ></path>
+    </svg>
+
+    <div class="relative pb-16">
+      <BubbleHeroSection>
+        {title}
+      </BubbleHeroSection>
+    </div>
+  </div>
+
+  <!-- Page Description & Date -->
+  <header class="max-w-4xl mx-auto px-4 pt-8 text-center">
+    {
+      description && (
+        <p class="text-gray-700 mb-4 text-lg font-medium">{description}</p>
+      )
+    }
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="bg-white pt-8 pb-16">
+    <section
+      class="max-w-4xl mx-auto px-4
+        prose prose-indigo
+        prose-h2:relative
+        prose-h2:font-bold
+        prose-h2:text-indigo-800
+        prose-h2:mb-6
+        prose-h2:mt-10
+        prose-h2:pb-3
+        prose-h2:border-b
+        prose-h2:border-indigo-100
+        prose-h2:after:content-['']
+        prose-h2:after:absolute
+        prose-h2:after:bottom-0
+        prose-h2:after:left-1/2
+        prose-h2:after:-translate-x-1/2
+        prose-h2:after:w-12
+        prose-h2:after:h-1
+        prose-h2:after:bg-gradient-to-r
+        prose-h2:after:from-purple-500
+        prose-h2:after:to-blue-500
+        prose-p:leading-relaxed"
+    >
+      <div class="markdown-content">
+        <Content />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  .markdown-content {
+    @apply text-primary dark:text-white;
+  }
+
+  .markdown-content :global(figure) {
+    @apply my-3;
+  }
+  .markdown-content :global(h2) {
+    @apply text-4xl mt-6 mb-3;
+  }
+
+  .markdown-content :global(h3) {
+    @apply text-3xl mt-6 mb-3;
+  }
+</style>

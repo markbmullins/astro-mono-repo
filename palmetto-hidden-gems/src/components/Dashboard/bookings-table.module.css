@@ -1,0 +1,144 @@
+.overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tableContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tableHeaderCell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.tableHeader {
+  text-align: left;
+}
+
+.searchForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.searchButton {
+  padding: 8px 16px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background-color: #218838;
+}
+
+.clearButton {
+  background-color: #0070f3;
+}
+
+.clearButton:hover {
+  background-color: #005bb5;
+}
+
+.loading,
+.error,
+.noData {
+  text-align: center;
+  padding: 20px 0;
+  color: #555;
+}
+
+.tourTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  padding: 0 1rem;
+}
+
+.tourTable th,
+.tourTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.tourTable th {
+  background-color: #f8f9fa;
+}
+
+.tourTable td {
+  height: 100%; /* Ensure all cells fill the row */
+  vertical-align: middle; /* Align content to the middle of the cell */
+}
+
+.editButton,
+.deleteButton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.editButton {
+  background-color: #ffc107;
+  color: white;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.editButton:hover {
+  background-color: #e0a800;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  width: 100%;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pageButton {
+  padding: 8px 16px;
+  background-color: #0070f3;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pageButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-weight: 500;
+}

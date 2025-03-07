@@ -1,0 +1,195 @@
+---
+import type { Tours } from "@content/accessors";
+
+interface Props {
+  tours: Tours;
+  ctaText: string;
+}
+
+const { tours, ctaText } = Astro.props;
+---
+
+<style>
+  /* Mobile-first single-column layout */
+  .grid {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1400px;
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+    height: 3rem;
+    padding: 1rem;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-top: 1.5rem;
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
+  }
+
+  /* Tablet layout with 2 columns */
+  @media (min-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Desktop layout with 3 columns */
+  @media (min-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tour-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .tour-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .view-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  #no-tours-message {
+    display: none;
+  }
+</style>
+<div class="grid">
+  {
+    tours.map((tour) => {
+      const src = tour.images.find((i) => i.isMain)!.image;
+      const scheduleDates = tour.schedules.map(
+        (s) => s.scheduleDate // "YYYY-MM-DD"
+      );
+
+      return (
+        <a
+          class="tour-card"
+          href={"/tours/" + tour.tourId}
+          data-schedules={JSON.stringify(scheduleDates)}
+        >
+          <img
+            src={src}
+            alt={`${tour.title}: ${tour.shortDescription}`}
+            class="image"
+          />
+          <div class="label">
+            <div class="title">{tour.title}</div>
+            <div>{tour.shortDescription}</div>
+            <button>{ctaText}</button>
+          </div>
+        </a>
+      );
+    })
+  }
+</div>
+<div id="no-tours-message">No tours available for selected date range</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const startInput = document.getElementById(
+      "start-date"
+    ) as HTMLInputElement;
+    const endInput = document.getElementById("end-date") as HTMLInputElement;
+    const cards = document.querySelectorAll(
+      ".tour-card"
+    ) as NodeListOf<HTMLElement>;
+    const noToursAvailableMessage = document.getElementById(
+      "no-tours-message"
+    ) as HTMLInputElement;
+
+    function filterTours() {
+      let startDateStr = startInput.value;
+      let endDateStr = endInput.value;
+      let numTours = 0;
+      // If no date range, show all
+      if (!startDateStr || !endDateStr) {
+        cards.forEach((card) => (card.style.display = "block"));
+        return;
+      }
+
+      if (startDateStr > endDateStr) {
+        startInput.value = endDateStr;
+        endInput.value = startDateStr;
+
+        let temp = endDateStr;
+        endDateStr = startDateStr;
+        startDateStr = temp;
+      }
+
+      const start = new Date(startDateStr);
+      const end = new Date(endDateStr);
+
+      cards.forEach((card) => {
+        // parse schedules from data attribute
+        const schedulesJson = card.getAttribute("data-schedules")!;
+        const scheduleDates = JSON.parse(schedulesJson); // an array of "YYYY-MM-DD"
+
+        // Check if ANY date is in range
+        const isInRange = scheduleDates.some((dateStr: string) => {
+          const dateObj = new Date(dateStr);
+          return dateObj >= start && dateObj <= end;
+        });
+
+        if (isInRange) {
+          numTours++;
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      if (numTours === 0) {
+        noToursAvailableMessage.style.display = "block";
+      } else {
+        noToursAvailableMessage.style.display = "none";
+      }
+    }
+
+    startInput.addEventListener("change", filterTours);
+    endInput.addEventListener("change", filterTours);
+  });
+</script>

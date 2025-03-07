@@ -1,0 +1,56 @@
+---
+import "../styles/reset.css";
+import "../styles/theme.css";
+import "../styles/global.css";
+import Navbar from "../components/Navbar/Navbar.astro";
+
+const { title, description, padding } = Astro.props;
+
+const navItems = {
+  Home: "/",
+  Tours: "/tours",
+  // Blog: "/blog",
+  About: "/about",
+};
+---
+
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/pineapple.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title || "Palmetto Hidden Gems"}</title>
+    <!-- https://answers.netlify.com/t/common-issue-netlify-cms-git-gateway-email-not-confirmed/10690 -->
+    <!-- Update email templates later and remove this -->
+
+    <meta
+      name="description"
+      content={description || "Explore Charleston with personalized tours."}
+    />
+
+    <style>
+      .padded {
+        padding: 0 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .padded {
+          padding: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Navbar navItems={navItems} />
+    <main class:list={{ padded: padding }}>
+      <slot />
+    </main>
+    <div id="modal-root"></div>
+
+    <script
+      is:inline
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://js.stripe.com/v3/" async></script>
+  </body>
+</html>

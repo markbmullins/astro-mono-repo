@@ -1,0 +1,53 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
+  class?: string;
+}
+
+const { variant = 'primary', size = 'medium', class: className } = Astro.props;
+---
+
+<button 
+  class:list={[
+    'button',
+    `button--${variant}`,
+    `button--${size}`,
+    className
+  ]}
+>
+  <slot />
+</button>
+
+<style>
+  .button {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .button--primary {
+    background: #0066cc;
+    color: white;
+  }
+  
+  .button--secondary {
+    background: #e5e7eb;
+    color: #111827;
+  }
+  
+  .button--small {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .button--medium {
+    font-size: 1rem;
+  }
+  
+  .button--large {
+    font-size: 1.125rem;
+    padding: 0.75rem 1.5rem;
+  }
+</style>

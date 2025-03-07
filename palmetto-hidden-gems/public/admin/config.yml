@@ -1,0 +1,196 @@
+backend:
+  name: git-gateway
+  repo: markbmullins/tour-site
+  branch: main
+local_backend: true
+media_folder: "public/images" # Location where files will be stored in the repo
+public_folder: "public/images" # The src attribute for uploaded media
+
+collections:
+  - name: "site"
+    label: "Site Content"
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "src/content/site/home.md"
+        fields:
+          - name: "pageTitle"
+            label: "Page Title"
+            widget: "string"
+          - name: "description"
+            label: "Page description"
+            widget: "string"
+          - name: "headline"
+            label: "Hero headline"
+            widget: "string"
+          - name: "subtitle"
+            label: "Hero subtitle"
+            widget: "string"
+          - name: "ctaText"
+            label: "Button text"
+            widget: "string"
+
+      - name: "tours"
+        label: "Tours Page"
+        file: "src/content/site/tours.md"
+        fields:
+          - name: "pageTitle"
+            label: "Page Title"
+            widget: "string"
+          - name: "description"
+            label: "Page description"
+            widget: "string"
+          - name: "headline"
+            label: "Tours page headline"
+            widget: "string"
+          - name: "subtitle"
+            label: "Tours page subtitle"
+            widget: "string"
+          - name: "ctaText"
+            label: "Tour Button Text"
+            widget: "string"
+      - name: "about"
+        label: "About Page"
+        file: "src/content/site/about.md"
+        fields:
+          - name: "pageTitle"
+            label: "Page Title"
+            widget: "string"
+          - name: "description"
+            label: "Page description"
+            widget: "string"
+          - name: "headline"
+            label: "About page headline"
+            widget: "string"
+          - name: "text"
+            label: "About page text"
+            widget: "text"
+          - name: "ctaText"
+            label: "Tour Button Text"
+            widget: "string"
+          - name: "images"
+            label: "Images"
+            widget: "list"
+            summary: "{{fields.mainImage}}"
+            fields:
+              - name: "image"
+                label: "Image"
+                widget: "image"
+              - name: "alt"
+                label: "Alt Text"
+                widget: "string"
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "src/content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in frontmatter
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "blog"
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+      - label: "Featured Image"
+        name: "thumbnail"
+        widget: "image"
+      - label: "Body"
+        name: "body"
+        widget: "text"
+        media_library:
+          config:
+            multiple: true # Allows multiple image uploads
+  - name: "tours"
+    label: "Tours"
+    folder: "src/content/tours"
+    create: true
+    fields:
+      - name: "title"
+        label: "Tour Name"
+        widget: "string"
+      - name: "description"
+        label: "Long Description"
+        widget: "text"
+      - name: "shortDescription"
+        label: "Short Description"
+        widget: "text"
+      - name: "length"
+        label: "Overall Length"
+        widget: "string"
+      - name: "price"
+        label: "Tour price"
+        widget: "string"
+      - name: "maxCapacity"
+        label: "Max Capacity"
+        widget: "number"
+      - name: "highlights"
+        label: "Highlights"
+        widget: "list"
+        field:
+          name: "highlight"
+          label: "Highlight"
+          widget: "string"
+      - name: "images"
+        label: "Images"
+        widget: "list"
+        summary: "{{fields.mainImage}}"
+        fields:
+          - name: "image"
+            label: "Image"
+            widget: "image"
+          - name: "alt"
+            label: "Alt Text"
+            widget: "string"
+          - name: "isMain"
+            label: "Is Main Image?"
+            widget: "boolean"
+            default: false
+      - name: "itinerary"
+        label: "Itinerary"
+        widget: "list"
+        fields:
+          - name: "location"
+            label: "Location"
+            widget: "string"
+          - name: "stopLength"
+            label: "Stop Length (minutes)"
+            widget: "number"
+            hint: "How many minutes this stop lasts."
+      - name: "tourId"
+        label: "Tour ID"
+        widget: "string"
+
+  - name: "schedules"
+    label: "Schedules"
+    folder: "src/content/schedules"
+    create: true
+    summary: "Tour: {{tour}}"
+    fields:
+      - name: "tourId"
+        label: "Tour Schedule"
+        widget: "relation"
+        collection: "tours"
+        searchFields: ["title", "tourId"]
+        valueField: "tourId"
+        display_fields: ["title"]
+      - name: "dates"
+        label: "Dates"
+        widget: "list"
+        fields:
+          - name: "schedule_date"
+            label: "Date"
+            widget: "datetime"
+            format: "YYYY-MM-DD" # Stores date in YYYY-MM-DD format
+            date_format: "YYYY-MM-DD" # UI displays date picker without time
+            time_format: false # Disables time selection
+          - name: "startTime"
+            label: "Start Time"
+            widget: "datetime"
+            format: "HH:mm" # Stores time in HH:mm format
+            date_format: false # Disables date selection
+            time_format: "HH:mm" # Ensures time picker is used

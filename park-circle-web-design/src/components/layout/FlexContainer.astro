@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+  col?: boolean;
+  row?: boolean;
+  breakpoint?: string;
+}
+
+const { class: extraClasses = "", col, row, breakpoint = "md" } = Astro.props;
+
+const flexDirection =
+  !col && !row
+    ? `flex-col ${breakpoint}:flex-row`
+    : col
+      ? "flex-col"
+      : "flex-row";
+---
+
+<!-- Hidden dummy element to ensure Tailwind generates breakpoint classes -->
+<div class="hidden md:flex-row lg:flex-row sm:flex-row xl:flex-row"></div>
+<div
+  class={`flex ${flexDirection} justify-center items-center ${extraClasses}`}
+>
+  <slot />
+</div>

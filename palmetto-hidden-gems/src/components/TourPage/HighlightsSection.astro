@@ -1,0 +1,26 @@
+---
+export interface Props {
+  highlights: string[];
+}
+const { highlights } = Astro.props;
+---
+
+<section class="highlights">
+  <h2>Highlights</h2>
+  <ul>
+    {highlights.map((highlight, index) => <li>{highlight}</li>)}
+  </ul>
+</section>
+
+<style>
+  .highlights h2 {
+    font-size: 1.5rem;
+  }
+  .highlights ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  .highlights li {
+    margin-bottom: 4px;
+  }
+</style>

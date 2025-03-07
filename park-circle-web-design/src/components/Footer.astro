@@ -1,0 +1,74 @@
+---
+import CTA from "./CTA.astro";
+import Swoosh from "./shapes/Swoosh.astro";
+import ThemedLogo from "./ThemedLogo.astro";
+---
+
+<footer
+  class="bg-primary dark:bg-gradient-to-bl from-[#071c2b] to-[#00041f] text-white min-h-100 w-full relative z-10"
+>
+  <Swoosh />
+  <div
+    class="container mx-auto px-10 md:px-2 md:py-10 flex flex-col md:flex-row md:justify-between space-y-8 md:space-y-0"
+  >
+    <div class="md:w-[40%] -mt-6">
+      <ThemedLogo alwaysWhite class="h-20 mb-4 w-auto" />
+      <p class="mb-10 text-sm leading-relaxed">
+        Park Circle Web Design in Charleston, South Carolina crafts engaging websites, web
+        applications, APIs, and ecommerce sites that boost your online presence
+        and attract more customers. Combining innovative design with robust
+        functionality, digital solutions are tailored to help your business
+        thrive.
+      </p>
+      <CTA variant="light" href="/contact"> Get Started Today </CTA>
+    </div>
+
+    <div class="md:w-[20%]">
+      <h3 class="font-semibold my-4 md:mt-0 text-sm uppercase tracking-wider">
+        Quick Links
+      </h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <!-- <li><a href="#" class="hover:underline">Reviews</a></li> -->
+        <!-- <li><a href="#" class="hover:underline">Web Design</a></li> -->
+        <!-- <li><a href="" class="hover:underline">Google PPC Ads</a></li> -->
+        <li><a href="/about" class="hover:underline">About Us</a></li>
+        <li><a href="/faq" class="hover:underline">FAQ</a></li>
+        <li><a href="/contact" class="hover:underline">Contact</a></li>
+        <!-- TODO: enable blog -->
+        <!-- <li><a href="/blog" class="hover:underline">Blog</a></li> -->
+        <li><a href="/pricing" class="hover:underline">Pricing</a></li>
+        <li><a href="/web-design" class="hover:underline">Web Design</a></li>
+        <!-- <li><a href="/careers" class="hover:underline">Careers</a></li> -->
+
+
+        <!-- <li><a href="#" class="hover:underline">SEO</a></li> -->
+      </ul>
+    </div>
+
+    <div class="md:w-[20%]">
+      <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">
+        Contact Information
+      </h3>
+      <ul class="space-y-2 text-sm">
+        <li>info@parkcirclewebdesign.com</li>
+        <li>United States</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-gray-700 mt-8">
+    <div
+      class="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between text-sm"
+    >
+      <p class="mb-2 md:mb-0">
+        &copy; {new Date().getFullYear()} Park Circle Web Design
+      </p>
+      <div class="space-x-4 mb-6">
+        <!-- TODO: Create Privacy Policy and Terms of Use pages -->
+        <a href="#" class="hover:underline">Privacy Policy</a>
+        <a href="#" class="hover:underline">Terms Of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>

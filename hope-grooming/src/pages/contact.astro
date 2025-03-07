@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { global } from "../data/site";
+import ContactForm from "../components/Booking/ContactForm.jsx";
+---
+
+<BaseLayout>
+  <div class="min-h-[calc(100vh-80px-112px)]">
+    <!-- Hero Section -->
+    <section
+      class="relative h-80 bg-gradient-to-r from-blue-300 to-purple-200 flex items-center justify-center"
+    >
+      <img
+        src="/assets/bathing.webp"
+        class="w-full h-full object-cover absolute inset-0 object-[0%_12%]"
+      />
+      <div class="absolute inset-0 bg-black opacity-60"></div>
+      <div class="relative z-10 text-center px-4">
+        <h2
+          class="text-5xl font-bold font-recoleta text-white mb-4 drop-shadow-lg"
+        >
+          Let's Connect
+        </h2>
+        <p class="text-white/90 text-lg max-w-xl mx-auto">
+          Whether you're ready to book or just have questions, we're all ears!
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Cards -->
+    <div
+      class="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+    >
+      <div
+        class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-blue-50"
+      >
+        <div class="text-blue-400 text-4xl mb-4">📞</div>
+        <h3 class="text-xl font-bold mb-2">Call Us</h3>
+        <p class="text-gray-600 mb-4">Perfect for quick questions</p>
+        <a
+          href={`tel:${global.contact.phone}`}
+          class="text-blue-500 hover:text-blue-600 font-semibold text-lg"
+        >
+          {global.contact.phone}
+        </a>
+      </div>
+
+      <div
+        class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-blue-50"
+      >
+        <div class="text-blue-400 text-4xl mb-4">📬</div>
+        <h3 class="text-xl font-bold mb-2">Email Us</h3>
+        <p class="text-gray-600 mb-4">We typically reply within 4 hours</p>
+        <a
+          href={`mailto:${global.contact.email}`}
+          class="text-blue-500 hover:text-blue-600 font-semibold text-lg"
+        >
+          {global.contact.email}
+        </a>
+      </div>
+
+      <div
+        class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-blue-50"
+      >
+        <div class="text-blue-400 text-4xl mb-4">📍</div>
+        <h3 class="text-xl font-bold mb-2">Visit Us</h3>
+        <p class="text-gray-600 mb-4">By appointment only</p>
+        <p class="text-blue-500 font-semibold text-lg">
+          {global.contact.address}
+        </p>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <section class="bg-blue-50 py-16">
+      <div class="max-w-2xl mx-auto px-4">
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <h3 class="text-3xl font-recoleta text-blue-400 mb-8 text-center">
+            Send a Message
+          </h3>
+          <ContactForm />
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

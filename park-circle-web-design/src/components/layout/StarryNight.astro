@@ -1,0 +1,123 @@
+---
+import FlexContainer from './FlexContainer.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+// Generate random star positions
+const generateStars = (count: number) =>
+  Array.from({ length: count }).map(() => ({
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    delay: `${Math.random() * 2}s`,
+    duration: `${3 + Math.random() * 5}s`,
+  }));
+---
+
+<FlexContainer
+  class="relative min-h-[300px] overflow-hidden bg-black dark:bg-[#030f18]"
+>
+  {/* Gradient Overlay */}
+  <div
+    class="absolute inset-0 before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(90deg,rgba(255,243,236,0.9)_23%,rgba(255,243,236,0)_80%] before:opacity-80 before:md:opacity-100 dark:before:bg-[linear-gradient(145deg,rgba(0,16,153,0.2)_0%,rgba(58,217,255,0.2)_96%)] dark:before:opacity-100"
+  >
+  </div>
+
+  {/* Content */}
+  <div class="relative z-20 mx-auto max-w-7xl px-4  text-center">
+    <h1
+      class="font-oswald text-4xl font-black uppercase text-white md:text-6xl"
+    >
+      {title}
+    </h1>
+  </div>
+
+  {/* Starry Background */}
+  <div class="absolute inset-0 z-0">
+    {/* Shooting Stars */}
+    <div
+      class="absolute h-px w-[70px] rotate-15 bg-white animate-shooting-star"
+      style={`--start-right: ${50 + Math.random() * 20}%;`}
+    >
+    </div>
+    <div
+      class="absolute h-px w-[70px] rotate-15 bg-white animate-shooting-star-2"
+      style={`--start-right: ${40 + Math.random() * 20}%;`}
+    >
+    </div>
+
+    {/* Star Clusters */}
+    {
+      [1, 2, 3].map((_, index) => (
+        <div
+          class={`absolute inset-0 ${index === 1 ? "-left-20 scale-y-[-1]" : ""} ${index === 2 ? "-left-10 scale-x-[-1]" : ""}`}
+        >
+          {generateStars(13).map((star) => (
+            <div
+              class="absolute h-[2px] w-[2px] rounded-full bg-white opacity-50 animate-star-flicker"
+              style={`
+              top: ${star.top};
+              left: ${star.left};
+              animation-delay: ${star.delay};
+              animation-duration: ${star.duration};
+            `}
+            />
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</FlexContainer>
+<style is:global>
+  @keyframes shooting-star {
+    0% {
+      top: -13.59%;
+      right: var(--start-right, 60%);
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      right: -10%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes shooting-star-2 {
+    0% {
+      top: -23.59%;
+      right: var(--start-right, 50%);
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      right: -17%;
+      opacity: 0;
+    }
+  }
+
+  .animate-shooting-star {
+    animation: shooting-star 10s infinite ease-in 1s;
+  }
+
+  .animate-shooting-star-2 {
+    animation: shooting-star-2 8s infinite ease-in 1.5s;
+  }
+
+  /* Existing star-flicker remains unchanged */
+  @keyframes star-flicker {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-star-flicker {
+    animation: star-flicker linear infinite;
+  }
+</style>

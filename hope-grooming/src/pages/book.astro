@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BookingForm from "../components/Booking/BookingForm.jsx";
+---
+
+<script>
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  console.log("params", JSON.stringify(urlSearchParams.entries()));
+</script>
+
+<BaseLayout>
+  <section class="mb-10 min-h-[calc(100svh-80px-112px)]">
+    <BookingForm client:load />
+  </section>
+</BaseLayout>

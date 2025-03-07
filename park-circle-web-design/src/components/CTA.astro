@@ -1,0 +1,33 @@
+---
+const {
+  href,
+  variant = "dark",
+  class: classes = "",
+  invertHoverColor,
+} = Astro.props;
+
+const darkCTA = "bg-primary hover:bg-primary-hover text-white";
+const lightCTA = "bg-secondary hover:bg-white text-primary";
+
+const darkTheme =
+  "dark:bg-[linear-gradient(45deg,_#cecece_0%,_#ffffff_100%)] dark:text-[var(--primary)] dark:[transition:box-shadow_0.3s] dark:[box-shadow:rgba(67,183,255,0.2)_0px_0px_24px,rgba(67,183,255,0.2)_0px_0px_39px,rgba(67,183,255,0.2)_0px_0px_60px]";
+
+const darkHover =
+  " dark:hover:animate-[buttonGlow_3.2s_forwards_infinite] dark:hover:shadow-[0_0_30px_rgba(67,183,255,0.4),_0_0_50px_rgba(67,183,255,0.4),_0_0_70px_rgba(67,183,255,0.4)] dark:hover:scale-105";
+---
+
+<a
+  href={href}
+  class={`
+    py-3
+    px-6
+    text-l
+    rounded-xl
+    transition 
+    ${darkTheme + darkHover} 
+    ${variant === "light" ? lightCTA : darkCTA} 
+    ${classes}
+    `}
+>
+  <slot />
+</a>

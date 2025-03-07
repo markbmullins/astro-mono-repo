@@ -1,0 +1,75 @@
+---
+import { global } from "../data/site";
+import Navbar from "../components/Navbar/Navbar.astro";
+import Footer from "../components/Footer";
+import "../styles/global.css";
+
+const navItems = {
+  Home: "/",
+  "About Us": "/about",
+  Services: "/services",
+  Contact: "/contact",
+  "Book Now": "/book",
+};
+
+const {footerColor} = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="title" content="Hope Grooming | Charleston, Dog Groomer" />
+    <meta
+      name="description"
+      content="Professional and compassionate dog grooming services in Charleston, SC. Pamper your pet with expert care tailored to their needs. Book now!"
+    />
+    <meta name="keywords" content="grooming, dog grooming" />
+    <meta name="author" content="Mark Mullins" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://grooming-site-seven.vercel.app/" />
+    <meta
+      property="og:title"
+      content="Hope Grooming | Charleston, Dog Groomer"
+    />
+    <meta
+      property="og:description"
+      content="Professional and compassionate dog grooming services in Charleston, SC. Pamper your pet with expert care tailored to their needs. Book now!"
+    />
+    <meta property="og:image" content="/assets/hope-grooming-og-size.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://grooming-site-seven.vercel.app/"
+    />
+    <meta
+      property="twitter:title"
+      content="Hope Grooming | Charleston, Dog Groomer"
+    />
+    <meta
+      property="twitter:description"
+      content="Professional and compassionate dog grooming services in Charleston, SC. Pamper your pet with expert care tailored to their needs. Book now!"
+    />
+    <meta
+      property="twitter:image"
+      content="/assets/hope-grooming-og-size.png"
+    />
+  </head>
+  <body class="bg-white text-gray-800">
+    <Navbar navItems={navItems} />
+    <main class="">
+      <slot />
+    </main>
+    <Footer footerColor={footerColor}/>
+  </body>
+</html>

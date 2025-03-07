@@ -1,0 +1,77 @@
+---
+import { BookingsManagementDashboard } from "@components/Dashboard/BookingsManagementDashboard.tsx";
+import { tours } from "@content/accessors";
+const title = "Booking Management Dashboard";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/images/pineapple.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- You can include global styles or fonts here -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      is:inline
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Customize the netlify identity widget to refresh on logout preventing users from using the cms when not logged in and then seeing an error -->
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Initializing Netlify Identity...");
+        const netlifyIdentity = window.netlifyIdentity;
+        console.log("netlifyIdentity", netlifyIdentity);
+        netlifyIdentity.init();
+
+        console.log("Current User: ", netlifyIdentity.currentUser());
+
+        // Save intended route before redirecting to login
+        const redirectPath = "/booking-management";
+        if (!netlifyIdentity.currentUser()) {
+          localStorage.setItem("redirectAfterLogin", redirectPath);
+          location.href = "/admin/";
+        }
+
+        // Handle authenticated redirection
+        netlifyIdentity.on("init", (user) => {
+          console.log("called oninit", user, location.pathname);
+          if (user && location.pathname !== redirectPath) {
+            const redirectAfterLogin =
+              localStorage.getItem("redirectAfterLogin") || redirectPath;
+            location.href = redirectAfterLogin;
+          }
+        });
+
+        // Refresh page on logout
+        netlifyIdentity.on("logout", () => location.reload());
+      });
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #f5f5f7;
+        color: #333;
+      }
+    </style>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #f5f5f7;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="booking-management-root">
+      <BookingsManagementDashboard client:only="react" tours={tours} />
+    </div>
+  </body>
+</html>

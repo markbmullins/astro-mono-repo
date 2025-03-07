@@ -1,0 +1,13 @@
+---
+import Heading from "../atoms/Heading.astro";
+import Bubble from "../shapes/Bubble.astro";
+import Section from "./Section.astro";
+const { headingClass } = Astro.props;
+---
+
+<Section variant="hero" class="h-[40vh]">
+  <Heading variant="hero" class={`mx-auto text-7xl text-center ${headingClass}`} `
+    ><slot /></Heading
+  >
+  <Bubble />
+</Section>

@@ -1,0 +1,163 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 99;
+  height: var(--navbar-height);
+  @apply bg-blue-400 text-white;
+}
+
+.navbar-logo {
+  margin-left: 1rem;
+  @apply text-white font-bold text-lg;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.3rem;
+  margin-right: 1rem;
+}
+
+.navbar-links a {
+  @apply text-white hover:text-blue-100 transition-colors duration-200;
+}
+
+/* ----------------------------------------------------------
+         HAMBURGER BUTTON
+  ---------------------------------------------------------- */
+.navbar-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  outline: none;
+}
+
+.navbar-toggle:focus {
+  outline: none;
+}
+
+.menu-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.menu-icon-line {
+  position: absolute;
+  height: 2px;
+  width: 20px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.line-top {
+  top: 8px;
+}
+
+.line-middle {
+  top: 14px;
+}
+
+.line-bottom {
+  top: 20px;
+}
+
+.navbar-toggle.open .line-top {
+  transform: rotate(45deg);
+  top: 14px;
+}
+
+.navbar-toggle.open .line-middle {
+  opacity: 0;
+}
+
+.navbar-toggle.open .line-bottom {
+  transform: rotate(-45deg);
+  top: 14px;
+}
+
+/* ----------------------------------------------------------
+         MOBILE OVERLAY DRAWER
+   ---------------------------------------------------------- */
+.mobile-menu {
+  position: absolute;
+  left: 0;
+  height: 0;
+  width: 100vw;
+  opacity: 0.95;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  z-index: 999;
+  @apply bg-blue-400;
+}
+
+.mobile-menu.open {
+  height: auto;
+}
+
+.menu-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.menu-item {
+  font-size: 1.5rem;
+  padding: 1rem 0;
+  width: 90%;
+  border-bottom: 1px solid white;
+  text-align: center;
+  cursor: pointer;
+  animation: 1s appear forwards;
+  text-decoration: none;
+  @apply text-white hover:text-gray-300;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 95%;
+  }
+  100% {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+}

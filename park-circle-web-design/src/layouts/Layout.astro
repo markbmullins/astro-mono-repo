@@ -1,0 +1,100 @@
+---
+import "../styles/global.css";
+import DarkModeInit from "../components/theme/DarkModeInit.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<!doctype html>
+<html lang="en" class="bg-white dark:bg-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <DarkModeInit />
+    <slot name="head" />
+    <link
+      rel="preload"
+      href="/assets/fonts/Oswald-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/SourceSans3-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/logos/bridge-white.svg"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>Park Circle Web Design | Charleston, SC Web Designer</title>
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="description" content="" />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://www.parkcirclewebdesign.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Park Circle Web Design" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://www.parkcirclewebdesign.com/assets/images/og-image.avif"
+    />
+    <meta property="og:image:type" content="image/avif" />
+    <meta
+      property="og:image"
+      content="https://www.parkcirclewebdesign.com/assets/images/og-image.webp"
+    />
+    <meta property="og:image:type" content="image/webp" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:domain"
+      content="park-circle-web-design.vercel.app"
+    />
+    <meta
+      property="twitter:url"
+      content="https://www.parkcirclewebdesign.com"
+    />
+    <meta name="twitter:title" content="Park Circle Web Design" />
+    <meta name="twitter:description" content="" />
+    <meta
+      property="twitter:image"
+      content="https://www.parkcirclewebdesign.com/assets/images/og-image.avif"
+    />
+    <meta property="twitter:image:type" content="image/avif" />
+    <meta
+      property="twitter:image"
+      content="https://www.parkcirclewebdesign.com/assets/images/og-image.webp"
+    />
+    <meta property="twitter:image:type" content="image/webp" />
+  </head>
+
+  <body>
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "ffa86a230442486387a05d3e21a4b76f"}'
+    ></script>
+    <Navbar />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

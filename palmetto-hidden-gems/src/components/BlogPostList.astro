@@ -1,0 +1,17 @@
+---
+const { posts } = Astro.props;
+---
+
+<section class="blog">
+  <h2>Charleston Insights</h2>
+  <ul>
+    {posts.map((post: any) => (
+      <li>
+        <a href={`/blog/${post.slug}`}>
+          <h3>{post.title}</h3>
+          <p>{post.excerpt}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

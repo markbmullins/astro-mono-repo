@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { global } from "../data/site";
+import { services } from "../data/services";
+import { Services } from "../components/Services/Services";
+---
+
+<BaseLayout>
+  <!-- Hero Section -->
+  <section class="relative h-[calc(100vh-80px)]">
+    <!-- Video Background -->
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src="/assets/vid1.mp4" type="video/mp4" />
+      <img
+        src="/assets/fallback-image.jpg"
+        alt="Background fallback"
+        class="w-full h-full object-cover"
+      />
+    </video>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+    <!-- Hero Content -->
+    <div
+      class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+    >
+      <h1 class="text-5xl font-bold mb-4">{global.name}</h1>
+      <p class="text-2xl mb-8 font-nunito">
+        Dog grooming <em class="text-blue-400">with heart</em>
+      </p>
+      <a
+        href="#services"
+        class="bg-blue-400 hover:bg-blue-500 text-white px-6 py-3 rounded-full"
+      >
+        View Services
+      </a>
+    </div>
+  </section>
+
+  <!-- Image and Slogan -->
+  <div class="">
+    <div
+      class="flex flex-col w-full items-center justify-center h-full relative lg:px-16 lg:flex-row"
+    >
+      <div class="relative mx-2 mt-10 lg:my-48">
+        <div
+          class="bg-blue-400 rounded-3xl absolute inset-0 translate-x-4 translate-y-4 lg:translate-x-6 lg:translate-y-6 -z-10"
+        >
+        </div>
+
+        <div class="rounded-3xl overflow-hidden">
+          <img
+            src="/assets/dog-grooming.jpeg"
+            alt="Happy dog after grooming"
+            class="max-w-[22rem] md:max-w-xl lg:max-w-2xl h-auto object-cover"
+          />
+        </div>
+        <!-- Image -->
+      </div>
+
+      <p class="text-xl text-center max-w-2xl mt-14 mb-20 lg:ml-10">
+        <em class="font-recoleta text-blue-400">Hope Grooming</em> provides every dog
+        with personalized care in a calm, loving environment. We are passionate about
+        ensuring every dog leaves feeling their best.
+      </p>
+    </div>
+  </div>
+
+  <!-- Services Overview -->
+  <section
+    class="min-h-screen mb-10 scroll-mt-16 lg:scroll-mt-24"
+    id="services"
+  >
+    <div class="w-full flex items-center justify-center">
+      <div class="rounded-lg px-10">
+        <h2
+          class="text-6xl font-bold mb-8 text-center font-recoleta text-blue-400"
+        >
+          Our Services
+          <hr class="bg-blue-400 h-0.5" />
+        </h2>
+
+        <Services services={services} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,13 @@
+.modalContent {
+  padding: 20px;
+}
+
+.modalContent p {
+  margin-bottom: 15px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

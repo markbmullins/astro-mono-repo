@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import { getEntry } from "astro:content";
+
+// Load the single “home” entry from the “site” collection:
+const content = await getEntry("site", "home");
+if (!content || !content.data) {
+  throw new Error("No site/tours.md found or it failed validation!");
+}
+const { pageTitle, headline, subtitle, description, ctaText } = content?.data;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <Hero title={headline} subtitle={subtitle} ctaText={ctaText} />
+</BaseLayout>
+
+<style>
+  main {
+    padding: 0;
+  }
+</style>

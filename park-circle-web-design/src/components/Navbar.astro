@@ -1,0 +1,100 @@
+---
+// Navbar.astro
+import CTA from "./CTA.astro";
+import Hamburger from "./Hamburger.astro";
+import ThemeToggle from "./theme/ThemeToggle.astro";
+import ThemedLogo from "./ThemedLogo.astro";
+
+const navItems = [
+  { href: "/", text: "Home" },
+  { href: "/about", text: "About Us" },
+  { href: "/faq", text: "FAQ" },
+  { href: "/contact", text: "Contact" },
+  // { href: "/blog", text: "Blog" },
+  { href: "/pricing", text: "Pricing" },
+];
+---
+
+<nav
+  class="bg-white dark:bg-dark text-primary dark:text-white shadow-md relative z-50"
+>
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <div class="text-2xl font-bold text-gray-800 dark:text-white">
+      <ThemedLogo />
+    </div>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden lg:flex space-x-8 text-lg">
+      {
+        navItems.map(({ href, text }: { href: string; text: string }) => {
+          return (
+            <li>
+              <a
+                href={href}
+                class="text-primary hover:text-gray-900 dark:text-white dark:hover:text-white transition"
+              >
+                {text}
+              </a>
+            </li>
+          );
+        })
+      }
+      <li>
+        <CTA href="/contact" variant="dark"> Get Started </CTA>
+      </li>
+    </ul>
+
+    <!-- Right side: Theme Toggle + Mobile Menu Button -->
+    <div class="flex items-center">
+      <ThemeToggle />
+      <!-- Mobile menu button -->
+      <button aria-label="Mobile Menu Button" id="mobile-menu-button" class="lg:hidden ml-4 focus:outline-none">
+        <Hamburger />
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Drawer Overlay -->
+<div
+  id="mobile-drawer"
+  class="absolute top-16 left-0 w-full bg-white dark:bg-gray-900
+  transform -translate-y-full transition-transform duration-300
+  ease-in-out lg:hidden z-40"
+>
+  <!-- Close Button & Header -->
+  <div class="flex items-center justify-between px-4 py-4 shadow-md">
+    <!-- Drawer Nav Links -->
+    <ul class="mt-6 mx-auto space-y-4 pb-8 text-center">
+      {
+        navItems.map(({ href, text }: { href: string; text: string }) => {
+          return (
+            <li>
+              <a
+                href={href}
+                class="block text-gray-700 hover:text-gray-900 dark:text-white dark:hover:text-white text-lg transition"
+              >
+                {text}
+              </a>
+            </li>
+          );
+        })
+      }
+      <li>
+        <CTA class="mt-4" href="/contact" variant="dark"> Get Started </CTA>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("mobile-menu-button")!;
+    const mobileDrawer = document.getElementById("mobile-drawer")!;
+    const hamburger = document.getElementById("hamburger")!;
+    toggleBtn.addEventListener("click", () => {
+      mobileDrawer.classList.toggle("-translate-y-full");
+      mobileDrawer.classList.toggle("translate-y-0");
+      hamburger.classList.toggle("open");
+    });
+  </script>
+</div>

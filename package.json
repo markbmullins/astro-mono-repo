@@ -1,0 +1,19 @@
+{
+  "name": "astro-mono-repo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "hope-grooming",
+    "palmetto-hidden-gems",
+    "park-circle-web-design",
+    "shared/*"
+  ],
+  "scripts": {
+    "dev:hope": "pnpm --filter hope-grooming dev",
+    "dev:palmetto": "pnpm --filter palmetto-hidden-gems dev",
+    "dev:park": "pnpm --filter park-circle-web-design dev",
+    "build:hope": "pnpm --filter hope-grooming build",
+    "build:palmetto": "pnpm --filter palmetto-hidden-gems build",
+    "build:park": "pnpm --filter park-circle-web-design build"
+  }
+}

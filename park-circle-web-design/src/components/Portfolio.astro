@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import { getPortfolioContent } from "../content/portfolio";
+import Heading from "./atoms/Heading.astro";
+import Paragraph from "./atoms/Paragraph.astro";
+import FlexContainer from "./layout/FlexContainer.astro";
+
+const portfolioItems = await getPortfolioContent();
+---
+
+<!-- Heading / Intro -->
+<header class="mb-12 px-8">
+  <FlexContainer breakpoint="lg">
+    <FlexContainer col class="lg:mr-8">
+      <Paragraph
+        variant="accent"
+        class="text-sm font-semibold uppercase tracking-widest"
+      >
+        Portfolio
+      </Paragraph>
+      <Heading level={2} class="mb-4 text-5xl sm:text-6xl">
+        WHAT WE DO
+      </Heading>
+    </FlexContainer>
+
+    <Paragraph variant="accent" class="max-w-2xl lg:border-l-2 pl-8">
+      At <a href="/contact" class="font-oswald underline mx-0.5"
+        >Park Circle Web Design</a
+      >, our portfolio reflects a passion for crafting robust digital
+      experiences across small business websites, dynamic web applications,
+      ecommerce platforms, and seamless API integrations. We’ve collaborated
+      across a range of industries, delivering websites that are effective,
+      visually striking, and meticulously tailored to each client’s needs.
+      Whether you’re a local startup or an established business ready for a
+      digital refresh, our work stands as proof of our commitment to
+      performance, beauty, and precision.
+    </Paragraph>
+  </FlexContainer>
+</header>
+
+<!-- Portfolio Items -->
+<div
+  class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-[1600px] mx-auto px-10"
+>
+  {
+    portfolioItems.map(({ data }) => (
+      <FlexContainer
+        col
+        class="items-start rounded-lg  p-6  transition  text-gray-600 dark:text-primary h-full"
+      >
+        <Image
+          src={data.image}
+          alt= {"Portfilio image | Park Circle Web Design, Charleston SC | " + 
+          data.alt ?? data.title}
+          width={408}
+          height={306}
+          class="mb-4 rounded flex-shrink-0"
+          loading="lazy"
+        />
+        <Heading level={3} class="mb-2 ml-3 flex-shrink-0">
+          {data.title}
+        </Heading>
+        <Paragraph class="mb-4 ml-3 flex-grow">{data.description}</Paragraph>
+      </FlexContainer>
+    ))
+  }
+</div>

@@ -1,0 +1,181 @@
+---
+import BubbleHeroSection from "../components/layout/BubbleHeroSection.astro";
+import FlexContainer from "../components/layout/FlexContainer.astro";
+import Layout from "../layouts/Layout.astro";
+import Accordions from "../components/Accordions/index.astro";
+import StarryNight from "../components/layout/StarryNight.astro";
+import { getCollection } from "astro:content";
+
+type FAQItem = {
+  question: string;
+  answer: string[];
+  category: string;
+  order: number;
+};
+
+const faqTopicsCollection = await getCollection("faqs");
+
+let faqItems: FAQItem[] = [];
+
+// For each topic file, parse its markdown body to extract FAQs.
+// We assume that FAQs in the markdown file start with "## " for the question.
+for (const faqTopic of faqTopicsCollection) {
+  const primaryTopic = faqTopic.data.topic;
+  // Use body property instead of rawContent.
+  const rawMarkdown: string = faqTopic.body;
+  
+  // Split on headings that start with "## " (allowing one or more newlines before)
+  // The first split chunk might be empty if the markdown starts with a heading.
+  const sections = rawMarkdown.split(/(?:^|\n)##\s+/).filter((section: string) => section.trim() !== "");
+  
+  // For each section, the first line is the question and the rest is the answer.
+  sections.forEach((section: string, index: number) => {
+    // Split by newline to isolate the first line as the question.
+    const lines = section.split("\n");
+    const question = lines.shift()?.trim() ?? "";
+    const answer = lines.filter(l=>l!=='');
+
+    // Push the FAQ item. We use the primary topic from the file.
+    faqItems.push({
+      question,
+      answer,
+      category: primaryTopic, // Since we're not using related topics here, just the file's topic.
+      order: index // Order within the file; adjust as needed.
+    });
+  });
+}
+
+// Optionally sort all FAQ items (for example, by order if needed)
+faqItems.sort((a, b) => a.order - b.order);
+
+// Build a list of unique topics from the FAQ items for filtering buttons.
+const topicsSet = new Set<string>();
+faqItems.forEach(item => topicsSet.add(item.category));
+const topics = Array.from(topicsSet);
+
+// Extract common Tailwind classes into constants to reduce duplication
+const baseButtonClass = `
+  relative group z-10
+  flex items-center justify-center
+  font-bold uppercase leading-[1.2em] box-border
+  px-3 py-2 rounded-md
+  border border-[#bababa]
+  bg-white
+  text-[var(--color-bodyTextColor)]
+  dark:border-[#bababa]
+  dark:bg-transparent
+  dark:text-[#bababa]
+  text-[clamp(0.875rem,2vw,1.25rem)]
+  transition-colors duration-300
+  hover:cursor-pointer
+  hover:border-[var(--color-primary)]
+  dark:hover:border-transparent
+  dark:hover:bg-white
+  dark:hover:text-[var(--color-primary)]
+  dark:hover:animate-[buttonGlow_3.2s_forwards_infinite]
+  dark:hover:shadow-[0_0_24px_rgba(67,183,255,0.2),_0_0_39px_rgba(67,183,255,0.2),_0_0_60px_rgba(67,183,255,0.2)]
+`.trim().replace(/\s+/g, ' ');
+
+const activeButtonClass = `
+  bg-primary
+  text-primary
+  border-[var(--color-primary)]
+  dark:border-transparent
+  dark:bg-white
+  dark:text-[var(--color-primary)]
+  dark:animate-[buttonGlow_3.2s_forwards_infinite]
+  dark:shadow-[0_0_24px_rgba(67,183,255,0.2),_0_0_39px_rgba(67,183,255,0.2),_0_0_60px_rgba(67,183,255,0.2)]
+`.trim().replace(/\s+/g, ' ');
+
+---
+
+<head slot="head">
+  <meta
+    name="description"
+    content="Park Circle Web Design FAQ – Get clear answers about our hand-coded web design, custom APIs, and comprehensive SEO services in Charleston, SC. Your questions, answered."
+  />
+</head>
+
+
+<Layout>
+  <!-- Bubble Hero -->
+   <!-- <StarryNight title="FAQ"/> -->
+  <BubbleHeroSection>FAQ</BubbleHeroSection>
+
+  <!-- Main content container -->
+  <section class="mx-auto max-w-7xl px-4 py-12" data-activeButtonClass={activeButtonClass}>
+    <h2 class="mb-8 text-3xl font-bold text-[var(--color-headerColor)] dark:text-white">
+      Frequently Asked Questions
+    </h2>
+
+    <!-- Topic Switchers (tabs) -->
+    <div class="flex justify-center items-stretch gap-3 mb-8">
+      {topics.map((topic) => (
+        <button
+          type="button"
+          class={baseButtonClass}
+          data-topic={topic}
+        >
+          <!-- "Fake" :before effect using an absolutely positioned span -->
+          <span
+            class="
+              pointer-events-none absolute inset-0
+              bg-[var(--color-primary)]
+              opacity-0
+              transition-opacity duration-300
+              group-hover:opacity-10
+            "
+          ></span>
+          {topic}
+        </button>
+      ))}
+    </div>
+
+    <!-- Accordion listing all items, filtered by script -->
+    <Accordions items={faqItems} />
+  </section>
+
+  <!-- Script to filter the accordion items by topic and set active styles -->
+  <script define:vars={{activeButtonClass}}>
+    document.addEventListener("DOMContentLoaded", () => {
+      const topics = [ "Plans", "Pricing & Payments", "SEO", "Websites"];
+      let selectedTopic = topics[0];
+   
+      const buttons = document.querySelectorAll('[data-topic]');
+      const accordion = document.getElementById("faq-accordion");
+
+      function filterFaqItems(topic) {
+        const items = accordion.querySelectorAll(".faq-item");
+        items.forEach((item) => {
+          item.dataset.category === topic
+            ? item.classList.remove("hidden")
+            : item.classList.add("hidden");
+        });
+      }
+
+      function setActiveButton(topic) {
+        buttons.forEach((btn) => {
+          const isSelected = btn.dataset.topic === topic;
+          if (isSelected) {
+            btn.classList.add(...activeButtonClass.split(" "));
+          } else {
+            btn.classList.remove(...activeButtonClass.split(" "));
+          }
+        });
+      }
+
+      // When a topic button is clicked, filter the accordion items
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selectedTopic = btn.dataset.topic;
+          filterFaqItems(selectedTopic);
+          setActiveButton(selectedTopic);
+        });
+      });
+
+      // Initialize with the first topic
+      filterFaqItems(selectedTopic);
+      setActiveButton(selectedTopic);
+    });
+  </script>
+</Layout>

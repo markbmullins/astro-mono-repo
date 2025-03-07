@@ -1,0 +1,55 @@
+.booking-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.booking-message p {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.booking-message button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+.booking-button {
+  margin-top: 1.5rem;
+  padding: 8px 16px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  height: 3rem;
+}
+
+.booking-button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+@media (max-width: 1020px) {
+  .modal-content {
+    width: 800px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .modal-content {
+    width: 800px;
+  }
+}
+
+/* Responsive styling for larger screens */
+@media (min-width: 768px) {
+  .booking-button {
+    height: 2.5rem;
+    margin-top: 0.5rem;
+  }
+}

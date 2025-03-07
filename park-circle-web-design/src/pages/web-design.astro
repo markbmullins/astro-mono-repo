@@ -1,0 +1,246 @@
+---
+import { Image } from "astro:assets";
+import Heading from "../components/atoms/Heading.astro";
+import Paragraph from "../components/atoms/Paragraph.astro";
+import BubbleHeroSection from "../components/layout/BubbleHeroSection.astro";
+import FlexContainer from "../components/layout/FlexContainer.astro";
+import Layout from "../layouts/Layout.astro";
+import BrandLink from "../components/BrandLink.astro";
+import Section from "../components/layout/Section.astro";
+import CTA from "../components/CTA.astro";
+import SVG from "../components/SVG.astro";
+
+const leanWebsiteSteps = [
+  {
+    title: "Hand-Crafted Code, Zero Bloat",
+    description:
+      "We build every website from scratch using minimal, hand-written code, no page builders, no WordPress. This means no unnecessary bloat and a design that truly stands apart.",
+    image: "/assets/icons/code.svg",
+    alt: "Icon representing hand-crafted code and zero bloat",
+  },
+  {
+    title: "Blazing-Fast Speeds That Convert",
+    description:
+      "Our lean coding philosophy ensures that pages load almost instantly, reducing bounce rates and keeping visitors engaged, leading to higher conversion rates.",
+    image: "/assets/icons/speedometer.svg",
+    alt: "Icon representing lightning-fast website speeds",
+  },
+  {
+    title: "Security & SEO Advantages",
+    description:
+      "With fewer third-party plugins and a clean codebase, our websites offer enhanced security and improved search rankings, giving you a competitive edge online.",
+    image: "/assets/icons/lock.svg",
+    alt: "Icon representing enhanced security and SEO benefits",
+  },
+];
+---
+
+<head slot="head">
+  <link rel="preload" as="image" href="/assets/images/chs3.avif" />
+  <meta
+    name="description"
+    content="Professional Web Design & Development. Custom-coded, lightning-fast websites built to outperform the competition with hand-crafted code, elevated security, and superior SEO."
+  />
+</head>
+
+<Layout>
+  <!-- Main Hero Section -->
+  <BubbleHeroSection headingClass="!text-4xl lg:!text-6xl"
+    >Professional Web Design & Development</BubbleHeroSection
+  >
+  <section>
+    <FlexContainer
+      breakpoint="xl"
+      class="pt-16 mb-16 xl:pt-32 pb-8 px-2 xl:px-8 w-full"
+    >
+      <div
+        class="border-primary border-2 rounded-4xl overflow-hidden mx-4 xl:ml-5 xl:max-w-[50%] self-start"
+      >
+        <Image
+          src="/assets/images/chs3.avif"
+          alt="Custom-coded website built for speed and performance"
+          width={1000}
+          height={1000}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <FlexContainer
+        col
+        class="max-w-[500px] mx-4 mt-16 xl:mt-0 xl:mx-16 items-start"
+      >
+        <Heading class="self-center mb-4" level={2}>
+          Lightning-Fast, Custom-Coded Websites
+        </Heading>
+        <Paragraph>
+          At <BrandLink />, we believe in stripping away the excess. Our
+          custom-coded websites are built from scratch, no bulky themes, no
+          WordPress, just lean, efficient code that ensures performance,
+          security, and scalability.
+        </Paragraph>
+        <Heading class="self-center mt-8 mb-4" level={2}>
+          Why a Lean Website Matters
+        </Heading>
+        <Paragraph> A lean website means: </Paragraph>
+        <Paragraph class="xl:whitespace-nowrap">
+          &#8226; <strong>Speed:</strong> Online users rarely wait more than a few
+          seconds for a page to load.<br />
+          &#8226; <strong>User Engagement:</strong> Fast, intuitive interfaces keep
+          visitors exploring.<br />
+          &#8226; <strong>Security:</strong> Fewer plugins mean fewer vulnerabilities.<br
+          />
+          &#8226; <strong>SEO Advantage:</strong> Clean code can boost your search
+          rankings.<br />
+          &#8226; <strong>Scalability:</strong> A lean codebase is easier to maintain
+          and expand.
+        </Paragraph>
+        <CTA href="/contact" class="my-8 self-center">Get Started Now</CTA>
+      </FlexContainer>
+    </FlexContainer>
+  </section>
+
+  <!-- Second Hero Section -->
+  <Section variant="inverted">
+    <FlexContainer
+      breakpoint="xl"
+      class="flex-col xl:flex-row-reverse py-16 px-4 xl:px-16 w-full h-screen"
+    >
+      <div
+        class="relative border-primary border-2 rounded-4xl overflow-hidden xl:ml-5 md:max-w-[80%] lg:max-w-[50%] max-h-[80vh]"
+      >
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="/assets/images/ravenel4.avif?w=1000&h=1000"
+          />
+          <source
+            media="(max-width: 767px)"
+            srcset="/assets/images/ravenel4.avif?w=500&h=500"
+          />
+          <Image
+            src="/assets/images/ravenel4.avif"
+            alt="Optimized performance and speed in action"
+            width={1000}
+            height={1000}
+            loading="lazy"
+          />
+        </picture>
+      </div>
+      <FlexContainer col class="max-w-[500px] mr-4 mt-16 xl:mt-0 xl:mr-16">
+        <Heading
+          variant="inverted"
+          class="self-center mb-4 text-center"
+          level={2}
+        >
+          Blazing-Fast Speeds That Convert
+        </Heading>
+        <Paragraph variant="inverted" class="mb-8 text-center">
+          In a world where slow websites lose customers, our lean approach
+          ensures your site loads in a flash. Faster speeds translate directly
+          into higher conversion rates and improved user satisfaction.
+        </Paragraph>
+        <Heading
+          variant="inverted"
+          class="self-center mb-4 text-center"
+          level={2}
+        >
+          Security Beyond Compare
+        </Heading>
+        <Paragraph variant="inverted" class="text-center">
+          By reducing the reliance on third-party plugins, our custom-coded
+          solutions minimize potential security risks. Enjoy peace of mind
+          knowing your website is built with safety and efficiency in mind.
+        </Paragraph>
+        <CTA
+          variant="light"
+          href="/contact"
+          class="my-8 self-center dark:!bg-none dark:!bg-secondary  dark:text-white"
+          >Learn More</CTA
+        >
+      </FlexContainer>
+    </FlexContainer>
+  </Section>
+
+  <!-- Process Steps Section -->
+  <section class="mx-auto max-w-7xl px-4 py-12">
+    <header class="mb-12 px-8 mt-20">
+      <FlexContainer breakpoint="lg">
+        <FlexContainer col class="lg:mr-8">
+          <Paragraph
+            variant="accent"
+            class="text-sm font-semibold uppercase tracking-widest"
+          >
+            Our Process
+          </Paragraph>
+          <Heading level={2} class="text-center mb-4 text-5xl sm:text-6xl">
+            Three Simple Steps
+          </Heading>
+        </FlexContainer>
+        <Paragraph variant="accent" class="max-w-2xl lg:border-l-2 pl-8">
+          At <BrandLink /> we simplify web development. From understanding your needs
+          to delivering a lean, optimized website, our process is designed to keep
+          things simple and effective.
+        </Paragraph>
+      </FlexContainer>
+    </header>
+
+    <div
+      class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-[1600px] mx-auto py-10 mb-20"
+    >
+      {
+        leanWebsiteSteps.map((step) => (
+          <a href="/contact">
+            <FlexContainer
+              col
+              class="items-start p-6 transition dark:bg-primary border rounded-xl hover:bg-gray-primaryHover hover:transform hover:scale-105 text-gray-600 dark:hover:!text-secondary h-full"
+            >
+              <SVG
+                src={step.image}
+                class="bg-primary dark:bg-white h-8 w-8 mb-4"
+              />
+              <Heading level={3} class="mb-2 flex-shrink-0 ">
+                {step.title}
+              </Heading>
+              <Paragraph class="mb-4 flex-grow">{step.description}</Paragraph>
+            </FlexContainer>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Additional Details Section -->
+  <section class="min-h-[20vw] px-4 py-12">
+    <FlexContainer class="w-full h-full justify-start mb-32">
+      <div
+        class="relative border-primary bg-primary border-2 rounded-4xl overflow-hidden xl:ml-32 xl:max-w-[50%] mb-12"
+      >
+        <Image
+          src="/assets/images/pineapple-fountain.avif"
+          alt="Optimized performance and speed in action"
+          width={1500}
+          height={1500}
+          loading="lazy"
+        />
+      </div>
+
+      <FlexContainer col class="max-w-[500px] ml-8">
+        <Heading level={2} class="mb-6 text-4xl">
+          Elevate Your Digital Presence
+        </Heading>
+        <Paragraph class="mb-4">
+          Custom-coded websites aren't just about aesthetics&#x2012;they're
+          about performance, security, and a lasting impact. At <BrandLink />,
+          we integrate best practices in SEO, image optimization, and efficient
+          coding to boost your search rankings and local visibility.
+        </Paragraph>
+        <Paragraph class="mb-12">
+          Enjoy improved ad performance, a more secure online experience, and a
+          scalable platform that grows with your business. Experience the
+          difference a lean, expertly developed website can make.
+        </Paragraph>
+        <CTA href="/contact">Get in Touch Today</CTA>
+      </FlexContainer>
+    </FlexContainer>
+  </section>
+</Layout>

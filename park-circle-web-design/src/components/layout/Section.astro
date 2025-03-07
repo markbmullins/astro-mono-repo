@@ -1,0 +1,18 @@
+---
+const { variant = "default", class: extraClasses = "" } = Astro.props;
+
+let baseClasses = "";
+
+if (variant === "hero") {
+  baseClasses =
+    "relative bg-primary w-full flex flex-col justify-center dark:bg-gradient-to-tl from-[#071c2b] to-[#00041f]";
+} else if (variant === "light") {
+  baseClasses = "bg-white dark:bg-dark w-full";
+} else if (variant === "inverted") {
+  baseClasses= "relative bg-primary text-white dark:text-primary w-full flex flex-col justify-center dark:bg-white";
+}
+---
+
+<section class={`${baseClasses} ${extraClasses}`}>
+  <slot />
+</section>

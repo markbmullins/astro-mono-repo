@@ -1,0 +1,203 @@
+---
+import { Image } from "astro:assets";
+import Heading from "../components/atoms/Heading.astro";
+import Paragraph from "../components/atoms/Paragraph.astro";
+import BubbleHeroSection from "../components/layout/BubbleHeroSection.astro";
+import FlexContainer from "../components/layout/FlexContainer.astro";
+import Layout from "../layouts/Layout.astro";
+import BrandLink from "../components/BrandLink.astro";
+import Section from "../components/layout/Section.astro";
+import CTA from "../components/CTA.astro";
+import SVG from "../components/SVG.astro";
+
+const aboutUsSteps = [
+  {
+    title: "Step 1: Short Questionnaire",
+    description:
+      "You'll receive an email with a few questions about your business, services, and unique selling points. Fill it out, and we'll take care of the rest.",
+    image: "/assets/icons/clipboard.svg",
+    alt: "Clipboard icon representing Step 1: short questionnaire about your business | Park Circle Web Design, Charleston, SC",
+  },
+  {
+    title: "Step 2: Design Review",
+    description:
+      "Next, we'll schedule a session to walk you through the initial design. We'll work on any changes you want to ensure you're completely satisfied.",
+    image: "/assets/icons/meeting.svg",
+    alt: "Meeting icon representing Step 2: design review session | Park Circle Web Design, Charleston, SC",
+  },
+  {
+    title: "Step 3: Development",
+    description:
+      "After you approve the design, we begin coding and setting everything up. We'll send you a preview link so you can see the site in action before it officially goes live.",
+    image: "/assets/icons/code.svg",
+    alt: "Code icon representing Step 3: development process and final launch | Park Circle Web Design, Charleston, SC",
+  },
+];
+---
+
+<head slot="head">
+  <link rel="preload" as="image" href="/assets/images/ravenel1.avif" />
+  <meta
+    name="description"
+    content="Learn about Park Circle Web Design, a Charleston-based small business specializing in bespoke, hand-coded web design solutions and innovative digital strategies that drive success."
+  />
+</head>
+
+<Layout>
+  <BubbleHeroSection>About Us</BubbleHeroSection>
+  <section>
+    <FlexContainer
+      breakpoint="xl"
+      class="pt-16 xl:pt-32 pb-8 px-2 xl:px-8 w-full justify-start"
+    >
+      <div
+        class="border-primary border-2 rounded-4xl overflow-hidden xl:ml-5 xl:max-w-[50%] self-start"
+      >
+        <Image
+          class=""
+          src="/assets/images/ravenel1.avif"
+          alt="Park Circle Web Design | Charleston, SC"
+          width={1000}
+          height={1000}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <FlexContainer
+        col
+        class="max-w-[500px] mx-4 xl:mx-0 mt-16 xl:mt-0 xl:ml-16 items-start"
+      >
+        <Heading class="self-center mb-4" level={2}
+          >Your Partner in Digital Success</Heading
+        >
+        <Paragraph>
+          At <BrandLink /> we we're more than just a web development firm&mdash;we're your
+          dedicated partner in building and growing your digital presence. With years
+          of experience leading development teams and acting as a technical architect,
+          our custom-coded websites are engineered for performance, security, and
+          scalability. We understand that your online presence is a vital extension
+          of your brand, so every solution we deliver is as unique as your business.
+        </Paragraph>
+        <Heading class="self-center mt-8 mb-4" level={2}
+          >A Holistic Approach to Digital Growth</Heading
+        >
+        <Paragraph
+          >We believe that success online goes far beyond a great website.
+          That's why we offer our packages to cover all aspects of your digital
+          strategy. Whether you need a cutting-edge site, targeted SEO,
+          effective digital advertising, strategic marketing, or a refined brand
+          image, we're here to support every facet of your growth. Our
+          integrated approach ensures that all elements of your digital presence
+          work harmoniously, driving traffic, engagement, and results.</Paragraph
+        >
+
+        <Paragraph class="mt-1">
+          Let's build something extraordinary together. Your success is our
+          business.
+        </Paragraph>
+        <CTA href="/contact" class="my-8"> Get Started Now </CTA>
+      </FlexContainer>
+    </FlexContainer>
+  </section>
+
+  <Section variant="hero">
+    <FlexContainer breakpoint="xl" class="py-16 px-4 xl:px-16 w-full h-screen">
+      <div
+        class="relative border-primary bg-primary border-2 rounded-4xl overflow-hidden xl:ml-5 xl:max-w-[50%] max-h-[80vh]"
+      >
+        <Image
+          src="/assets/images/chs1.avif"
+          alt="Park Circle Web Design | Charleston, SC"
+          width={500}
+          height={1000}
+          loading="lazy"
+        />
+      </div>
+      <FlexContainer
+        col
+        class="max-w-[500px] ml-4 mt-16 xl:mt-0 xl:ml-16 items-start"
+      >
+        <Heading variant="hero" class="self-center mb-4" level={2}
+          >Local Expertise, Personalized Service</Heading
+        >
+        <Paragraph variant="hero" class="mb-8"
+          >As a local, small business, we know what it takes to stand out in
+          today's competitive market. Our personalized service means we're
+          always accessible and responsive to your needs. We're committed to
+          working closely with you, understanding your goals, and tailoring our
+          solutions to fit your budget and vision. With our flexible monthly
+          plan, small businesses can access top-tier, custom-built web solutions
+          without the burden of hefty upfront costs.</Paragraph
+        >
+        <Heading variant="hero" class="self-center mb-4" level={2}
+          >Empowering Your Business</Heading
+        >
+        <Paragraph variant="hero"
+          >At <BrandLink />, our passion is empowering your business to succeed
+          in the digital landscape. We combine technical expertise with creative
+          vision to deliver comprehensive digital solutions that not only
+          attract visitors but convert them into loyal customers. By partnering
+          with us, you gain a team that's as invested in your success as you
+          are&mdash;guiding you every step of the way and ensuring your digital
+          presence reflects the true essence of your brand.
+        </Paragraph>
+        <CTA href="/contact" variant="light" class="my-8">
+          Get Started Now
+        </CTA>
+      </FlexContainer>
+    </FlexContainer>
+  </Section>
+  <section class="mx-auto max-w-7xl px-4 py-12">
+    <!-- Heading / Intro -->
+    <header class="mb-12 px-8 mt-20">
+      <FlexContainer breakpoint="lg">
+        <FlexContainer col class="lg:mr-8">
+          <Paragraph
+            variant="accent"
+            class="text-sm font-semibold uppercase tracking-widest"
+          >
+            How we work
+          </Paragraph>
+          <Heading level={2} class="mb-4 text-5xl sm:text-6xl">
+            Three easy steps
+          </Heading>
+        </FlexContainer>
+
+        <Paragraph variant="accent" class="max-w-2xl lg:border-l-2 pl-8">
+          At <a href="/contact" class="font-oswald underline mx-0.5">
+            Park Circle Web Design
+          </a> we handle everything. Once you've signed on, we send you a brief questionnaire
+          about your business and what you'd like from your new site. From there,
+          we develop the content, create the design, get your final approval, and
+          build the site. On average, it takes around three to six weeks from start
+          to finish.
+        </Paragraph>
+      </FlexContainer>
+    </header>
+
+    <!-- Process Steps -->
+    <div
+      class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-[1600px] mx-auto py-10 mb-20"
+    >
+      {
+        aboutUsSteps.map((data) => (
+          <a href="/contact">
+            <FlexContainer
+              col
+              class="items-start  p-6  transition dark:bg-primary border rounded-xl hover:bg-gray-200 hover:transform hover:scale-105 text-gray-600 dark:text-primary h-full"
+            >
+              <SVG
+                src={data.image}
+                class="bg-primary dark:bg-white h-8 w-8 mb-4"
+              />
+              <Heading level={3} class="mb-2 flex-shrink-0">
+                {data.title}
+              </Heading>
+              <Paragraph class="mb-4 flex-grow">{data.description}</Paragraph>
+            </FlexContainer>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

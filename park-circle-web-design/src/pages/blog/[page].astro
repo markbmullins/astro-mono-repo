@@ -1,0 +1,158 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BubbleHeroSection from "../../components/layout/BubbleHeroSection.astro";
+import Heading from "../../components/atoms/Heading.astro";
+import { Image } from "astro:assets";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blogs", ({ data }) => !!data.title);
+
+  // Decide how many posts per page
+  const postsPerPage = 6;
+
+  // Calculate total pages
+  const totalPages = Math.ceil(allPosts.length / postsPerPage);
+
+  // Generate an array of page numbers, e.g. [1, 2, 3, ...]
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  // Return an array of route definitions: [{ params: { page: '1' }}, { params: { page: '2' }}, ...]
+  return pageNumbers.map((pageNumber) => {
+    return {
+      params: { page: String(pageNumber) },
+    };
+  });
+}
+
+// Now, the main page logic runs:
+const allPosts = await getCollection("blogs", ({ data }) => !!data.title);
+
+// Decide how many posts per page
+const postsPerPage = 6;
+
+// Current page from URL params (passed in from getStaticPaths)
+const currentPage = parseInt(Astro.params.page, 10) || 1;
+
+// Calculate start/end indices for the slice
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+
+// Sort posts (newest first) and slice out the posts for this page
+const pagePosts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(startIndex, endIndex);
+
+// For pagination links, we need total pages again
+const totalPages = Math.ceil(allPosts.length / postsPerPage);
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+<head slot="head">
+  <meta
+    name="description"
+    content="Stay informed with the Park Circle Web Design blog. Explore expert insights, trends, and tips on custom web design, SEO, and digital marketing from Charleston, SC."
+  />
+</head>
+
+<Layout>
+  <BubbleHeroSection>Blog</BubbleHeroSection>
+
+  <section class="mx-auto max-w-7xl px-4 py-12">
+    <div
+      class="grid
+          grid-cols-1
+          md:grid-cols-3
+          gap-8"
+    >
+      {
+        pagePosts.map(({ data, id }) => (
+          <article
+            class="
+              group 
+              bg-white 
+              dark:bg-gray-800 
+              rounded-md 
+              shadow 
+              hover:shadow-lg 
+              transition-shadow 
+              overflow-hidden
+            "
+          >
+            <a href={`/blog/post/${id}`} class="block">
+              {data.image && (
+                <Image
+                  src={data.image}
+                  alt={data.title}
+                  inferSize={true}
+                  class="w-full h-48 object-cover"
+                />
+              )}
+              <div class="p-5">
+                <h2
+                  class="
+                    text-xl 
+                    font-semibold 
+                    text-gray-800 
+                    dark:text-gray-100 
+                    mb-2
+                  "
+                >
+                  {data.title}
+                </h2>
+                <p
+                  class="
+                    text-sm 
+                    text-gray-500 
+                    dark:text-gray-400 
+                    mb-3
+                  "
+                >
+                  {data.pubDate.toLocaleDateString()}
+                </p>
+                {data.description && (
+                  <p
+                    class="
+                      text-gray-700 
+                      dark:text-gray-300 
+                      line-clamp-3
+                    "
+                  >
+                    {data.description}
+                  </p>
+                )}
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-10 flex justify-center items-center gap-2">
+      {
+        pages.length > 1 &&
+          pages.map((pageNumber) => (
+            <a
+              href={`/blog/${pageNumber}`}
+              class={`
+              px-4 py-2 
+              border border-gray-300 
+              rounded 
+              text-sm 
+              ${
+                pageNumber === currentPage
+                  ? "bg-gray-800 text-white dark:bg-white dark:text-gray-800"
+                  : "bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              }
+            `}
+            >
+              {pageNumber}
+            </a>
+          ))
+      }
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,29 @@
+---
+// MaskedIcon.astro
+
+export interface Props {
+  /** Path to the SVG icon (e.g., "/assets/icons/logo.svg") */
+  src: string;
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const { src, class: className = "" } = Astro.props;
+---
+
+<!-- The default class sets default width, height, and background-color.
+     Passed-in classes can override these properties -->
+<div
+  class={`masked-icon ${className}`}
+  style={`
+    -webkit-mask: url(${src}) no-repeat center;
+    mask: url(${src}) no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  `}
+>
+</div>
+
+<style>
+ 
+</style>

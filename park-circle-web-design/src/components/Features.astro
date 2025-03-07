@@ -1,0 +1,33 @@
+---
+import { getOrderedFeatures } from "../content/features";
+import Heading from "./atoms/Heading.astro";
+import Paragraph from "./atoms/Paragraph.astro";
+import FlexContainer from "./layout/FlexContainer.astro";
+import SVG from "./SVG.astro";
+
+const features = await getOrderedFeatures();
+---
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 px-8">
+  {
+    features.map(({ data }) => (
+      <a href="/contact">
+        <div class="m-5 md:m-0 flex flex-col h-full rounded-lg  bg-white hover:bg-gray-50 p-6 shadow transition hover:shadow-lg">
+          <span class="">
+            <SVG src={data.iconURL!} class="bg-primary h-12 w-12 mb-4" />
+          </span>
+
+          <Heading level={3} class="mb-2" variant="white-bg">
+            {data.title}
+          </Heading>
+          <Paragraph variant="white-bg" class="mb-4">
+            {data.description}
+          </Paragraph>
+          <button class="w-32 h-10 mt-auto text-center mb-1 rounded-xl bg-primary px-4 py-2 text-white hover:bg-primary-hover">
+            Get Started
+          </button>
+        </div>
+      </a>
+    ))
+  }
+</div>

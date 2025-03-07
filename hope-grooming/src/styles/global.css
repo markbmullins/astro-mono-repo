@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any custom styles below */
+:root {
+  --navbar-height: 80px;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Playfair";
+  src: url("/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400; /* Adjust weight as necessary */
+  font-style: normal; /* Adjust style as necessary */
+}
+@font-face {
+  font-family: "Playfair";
+  src: url("/PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400; /* Adjust weight as necessary */
+  font-style: italic; /* Adjust style as necessary */
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("/Nunito-VariableFont_wght.ttf.ttf") format("truetype");
+  font-weight: 400; /* Adjust weight as necessary */
+  font-style: normal; /* Adjust style as necessary */
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("/Nunito-Italic-VariableFont_wght.ttf.ttf") format("truetype");
+  font-weight: 400; /* Adjust weight as necessary */
+  font-style: italic; /* Adjust style as necessary */
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/Raleway-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400; /* Adjust weight as necessary */
+  font-style: normal; /* Adjust style as necessary */
+}
+@font-face {
+  font-family: "Campton";
+  src: url("/CamptonBook.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Campton";
+  src: url("/CamptonBookItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Recoleta";
+  src: url("/Recoleta-Alt-Medium.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Recoleta";
+  src: url("/Recoleta-Alt_Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}

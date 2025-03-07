@@ -1,0 +1,21 @@
+/* src/styles/theme.css */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #333333;
+  --color-primary: #017374;
+  --color-primary-hover: #348f90;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --navbar-height: 80px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #222222;
+  --color-text: #ffffff;
+  --color-primary: #0fa3b1;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: Arial, sans-serif;
+}

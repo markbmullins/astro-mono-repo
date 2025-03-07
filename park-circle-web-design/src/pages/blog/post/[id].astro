@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import { getEntry, render } from "astro:content";
+import Heading from "../../../components/atoms/Heading.astro";
+import Paragraph from "../../../components/atoms/Paragraph.astro";
+import { Image } from "astro:assets";
+
+export const prerender = true;
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blogs");
+  return allPosts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { title, pubDate, image } = post.data;
+
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+---
+
+<Layout>
+  <article
+    class="mx-auto
+      max-w-4xl
+      px-4
+      py-12
+      prose
+      prose-img:rounded
+      dark:prose-invert"
+  >
+    <header class="mb-8">
+      <Heading>{title}</Heading>
+      <Paragraph class="text-md mt-1">
+        {pubDate.toLocaleDateString()}
+      </Paragraph>
+    </header>
+
+    {
+      image && (
+        <Image
+          src={image}
+          alt={title}
+          inferSize={true}
+          class="mb-8 w-full h-auto rounded shadow"
+        />
+      )
+    }
+
+    <div class="markdown-content">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  @reference "../../../styles/global.css";
+
+  .markdown-content {
+    @apply text-primary dark:text-white;
+  }
+
+  .markdown-content :global(figure) {
+    @apply my-3;
+  }
+  .markdown-content :global(h2) {
+    @apply text-4xl mt-6 mb-3;
+  }
+
+  .markdown-content :global(h3) {
+    @apply text-3xl mt-6 mb-3;
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import "./navbar.css";
+
+interface Props {
+  navItems: Record<string, string>;
+}
+const { navItems } = Astro.props;
+---
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="/" class="navbar-logo">Palmetto Hidden Gems</a>
+
+    <!-- HAMBURGER / TOGGLE BUTTON -->
+    <button class="navbar-toggle" aria-label="Toggle menu" id="menuToggle">
+      <div class="menu-icon">
+        <div class="menu-icon-line line-top"></div>
+        <div class="menu-icon-line line-middle"></div>
+        <div class="menu-icon-line line-bottom"></div>
+      </div>
+    </button>
+
+    <!-- DESKTOP NAV LINKS -->
+    <div class="navbar-links">
+      {
+        Object.entries(navItems).map(([navItem, link]) => (
+          <a href={link}>{navItem}</a>
+        ))
+      }
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="menu-list">
+      {
+        Object.entries(navItems).map(([navItem, link]) => (
+          <a class="menu-item" href={link}>
+            {navItem}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- PURE JS FOR TOGGLING -->
+  <script>
+    const menuToggleButton = document.getElementById("menuToggle")!;
+    const mobileMenu = document.getElementById("mobileMenu")!;
+
+    // Toggle the drawer open/close
+    menuToggleButton.addEventListener("click", () => {
+      menuToggleButton.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+
+    // Close drawer when clicking any mobile menu link
+    const menuItems = mobileMenu.querySelectorAll(".menu-item");
+    menuItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Just close everything
+        menuToggleButton.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      });
+    });
+  </script>
+</body>

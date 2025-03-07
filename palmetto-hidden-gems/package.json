@@ -1,0 +1,25 @@
+{
+  "name": "tour-site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.4",
+    "@astrojs/netlify": "^6.0.1",
+    "@astrojs/react": "^4.1.2",
+    "@shared/ui": "workspace:*",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.4.0",
+    "astro": "5.1.1",
+    "decap-cms-app": "^3.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "5.6.3"
+  }
+}

@@ -1,0 +1,37 @@
+---
+interface ItineraryStop {
+  location: string;
+}
+
+export interface Props {
+  itinerary: ItineraryStop[]; // e.g. [ {location: "City Hall", stopLength: 15}, ... ]
+}
+
+const { itinerary } = Astro.props;
+---
+
+<section class="itinerary">
+  <h2>Itinerary</h2>
+  <ul>
+    {
+      itinerary.map((stop, i) => (
+        <li>
+          <strong>Stop {i + 1}</strong> — {stop.location}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .itinerary h2 {
+    font-size: 1.5rem;
+  }
+  .itinerary ul {
+    list-style: none;
+    padding: 0;
+  }
+  .itinerary li {
+    margin-bottom: 4px;
+  }
+</style>

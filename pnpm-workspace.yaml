@@ -1,0 +1,5 @@
+packages:
+  - 'hope-grooming'
+  - 'palmetto-hidden-gems'
+  - 'park-circle-web-design'
+  - 'shared/*'

@@ -1,0 +1,80 @@
+---
+// Heading.astro
+export interface Props {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  variant?: "primary" | "hero" | "accent" | "white-bg" | "inverted";
+  class?: string;
+}
+const { level = 1, variant = "primary", class: extraClass = "" } = Astro.props;
+
+let baseClass = "";
+if (level === 1) {
+  // Hero/primary heading style
+  baseClass = "text-3xl md:text-6xl font-black";
+} else if (level === 2) {
+  baseClass = "text-3xl font-bold";
+} else if (level === 3) {
+  baseClass = "text-xl font-semibold";
+} else {
+  baseClass = "font-bold";
+}
+
+if (variant === "accent") {
+  baseClass += " text-accent dark:text-secondary";
+}
+if (variant === "primary") {
+  baseClass += " text-primary dark:text-white";
+}
+if (variant === "inverted") {
+  baseClass += " text-white dark:text-primary";
+}
+if (variant === "white-bg") {
+  baseClass += " text-primary dark:text-primary";
+}
+if (variant === "hero") {
+  baseClass += " text-white";
+}
+---
+
+{
+  level === 1 && (
+    <h1 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h1>
+  )
+}
+{
+  level === 2 && (
+    <h2 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h2>
+  )
+}
+{
+  level === 3 && (
+    <h3 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h3>
+  )
+}
+{
+  level === 4 && (
+    <h4 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h4>
+  )
+}
+{
+  level === 5 && (
+    <h5 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h5>
+  )
+}
+{
+  level === 6 && (
+    <h6 class={`${baseClass} ${extraClass}`}>
+      <slot />
+    </h6>
+  )
+}

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --dark: #030f18;
+  --dark-hover: #1c272f;
+  --medium: #2c394b;
+  --accent: #334756;
+  --primary: #001f3f;
+  --primary-hover: #334c65;
+  --primaryLight: #43b7ff;
+  --secondary: #43b7ff;
+  --secondary-hover: #56beff;
+  --secondaryLight: #001f3f;
+  --headerColor: #1a1a1a;
+  --bodyTextColor: #4e4b66;
+  --bodyTextColorWhite: #fafbfc;
+  --accent-dark: #071d2c;
+}
+
+@theme {
+  --color-dark: #030f18;
+  --color-medium: #2c394b;
+  --color-accent: #334756;
+  --color-accent-dark: #071d2c;
+  --color-primary: #001f3f;
+  --color-primary-hover: #334c65;
+  --color-primaryLight: #43b7ff;
+  --color-secondary: #43b7ff;
+  --color-secondary-hover: #56beff;
+  --color-secondaryLight: #001f3f;
+  --color-headerColor: #1a1a1a;
+  --color-bodyTextColor: #4e4b66;
+  --color-bodyTextColorWhite: #fafbfc;
+  --container-3xl: 107rem;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("/assets/fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/assets/fonts/SourceSans3-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Source Sans 3", "sans-serif";
+  --font-oswald: "Oswald", "sans-serif";
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Oswald", sans-serif;
+  }
+
+  body {
+    font-family: "Source Sans 3", sans-serif;
+  }
+}
